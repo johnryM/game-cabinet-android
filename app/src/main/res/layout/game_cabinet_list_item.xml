@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+
+    <CheckBox
+        android:id="@+id/completed_check_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:id="@+id/game_title_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/completed_check_box"
+        android:textStyle="bold"
+        android:padding="4dp"
+        tools:text="Game Title"/>
+
+    <TextView
+        android:id="@+id/game_platform_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/completed_check_box"
+        android:layout_below="@+id/game_title_text"
+        android:padding="4dp"
+        tools:text="Platform"/>
+
+</RelativeLayout>

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.skeeno.android.gamecabinet.Model.GameModel;
 import com.skeeno.android.gamecabinet.Model.Platform;
 import com.skeeno.android.gamecabinet.R;
+import com.skeeno.android.gamecabinet.UI.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,12 +73,19 @@ public class CabinetFragment extends Fragment {
 
         updateGameListUI();
 
+        mGameListRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+
         return view;
     }
 
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    private void updateGameListUI() {
+        mGameAdapter = new GameAdapter(mGameList);
+        mGameListRecyclerView.setAdapter(mGameAdapter);
     }
 
     private class GameHolder extends RecyclerView.ViewHolder {
@@ -89,16 +97,14 @@ public class CabinetFragment extends Fragment {
         public GameHolder(View itemView) {
             super(itemView);
 
-            mGameTitleTextView = (TextView) itemView;
+            mGameTitleTextView = (TextView) itemView.findViewById(R.id.game_title_text);
+            mPlatformTextView = (TextView) itemView.findViewById(R.id.game_platform_text);
+            mCompletedCheck = (CheckBox) itemView.findViewById(R.id.completed_check_box);
         }
     }
 
-    private void updateGameListUI() {
-        mGameAdapter = new GameAdapter(mGameList);
-        mGameListRecyclerView.setAdapter(mGameAdapter);
-    }
 
-    private class GameAdapter extends RecyclerView.Adapter {
+    private class GameAdapter extends RecyclerView.Adapter<GameHolder> {
 
         private List<GameModel> mGames;
 
@@ -107,17 +113,18 @@ public class CabinetFragment extends Fragment {
         }
 
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public GameHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(getActivity());
-            View view = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            View view = inflater.inflate(R.layout.game_cabinet_list_item, parent, false);
             return new GameHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            GameHolder gameHolder = (GameHolder) holder;
+        public void onBindViewHolder(GameHolder holder, int position) {
             GameModel game = mGames.get(position);
-            gameHolder.mGameTitleTextView.setText(game.getGameTitle());
+            holder.mGameTitleTextView.setText(game.getGameTitle());
+            holder.mPlatformTextView.setText(game.getPlatform().toString());
+            holder.mCompletedCheck.setChecked(game.getComplete());
         }
 
         @Override
