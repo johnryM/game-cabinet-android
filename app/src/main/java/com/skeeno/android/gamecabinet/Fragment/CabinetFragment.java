@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.skeeno.android.gamecabinet.Model.GameManager;
 import com.skeeno.android.gamecabinet.Model.GameModel;
 import com.skeeno.android.gamecabinet.Model.Platform;
 import com.skeeno.android.gamecabinet.R;
@@ -21,6 +22,7 @@ import java.util.List;
 public class CabinetFragment extends Fragment {
 
     private ArrayList<GameModel> mGameList = new ArrayList<>();
+    private GameManager mGameManager;
 
     private RecyclerView mGameListRecyclerView;
     private GameAdapter mGameAdapter;
@@ -43,20 +45,7 @@ public class CabinetFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        mGameList.add(new GameModel("Final Fantasy XV", Platform.PS4, false));
-        mGameList.add(new GameModel("Pokemon Sun", Platform.THREE_DS, false));
-        mGameList.add(new GameModel("Deus Ex: Mankind Divided", Platform.PC, true));
-        mGameList.add(new GameModel("Skate 3", Platform.XBOX_360, true));
-        mGameList.add(new GameModel("Metal Gear Solid V: Phantom Pain", Platform.XBOX_ONE, false));
-        mGameList.add(new GameModel("Test Drive Unlimited", Platform.XBOX_360, true));
-        mGameList.add(new GameModel("Stardew Valley", Platform.PC, false));
-        mGameList.add(new GameModel("Call of Duty: Modern Warfare", Platform.XBOX_360, true));
-        mGameList.add(new GameModel("Shadow of the Colossus Remastered", Platform.PS3, false));
-        mGameList.add(new GameModel("Age of Empires II", Platform.PC, false));
-        mGameList.add(new GameModel("Destiny", Platform.XBOX_ONE, true));
-        mGameList.add(new GameModel("Pokemon Yellow", Platform.OTHER, true));
-        mGameList.add(new GameModel("Warhammer 40000: Dawn of War", Platform.PC, true));
-        mGameList.add(new GameModel("Tamagotchi", Platform.OTHER, false));
+        mGameManager = GameManager.getInstance();
 
         super.onCreate(savedInstanceState);
     }
@@ -84,8 +73,15 @@ public class CabinetFragment extends Fragment {
     }
 
     private void updateGameListUI() {
+        fillGameList();
         mGameAdapter = new GameAdapter(mGameList);
         mGameListRecyclerView.setAdapter(mGameAdapter);
+    }
+
+    private void fillGameList() {
+        for (int i = 0; i < mGameManager.getGameCollectionSize(); i++) {
+            mGameList.add(mGameManager.getGameEntry(i));
+        }
     }
 
     private class GameHolder extends RecyclerView.ViewHolder {
