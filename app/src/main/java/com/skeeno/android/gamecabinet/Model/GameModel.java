@@ -1,20 +1,37 @@
 package com.skeeno.android.gamecabinet.Model;
 
-import android.icu.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Johnry on 9/4/2016.
  */
 public class GameModel {
 
+    private UUID mUUID;
     private String mName;
-    private Platform mPlatform;
+    private String mPlatform;
+    private GregorianCalendar mReleaseDate;
+    private List<String> mDevelopers;
+    private List<String> mGenres;
     private Boolean mIsComplete;
 
-    public GameModel(String name, Platform platform, Boolean isComplete) {
+
+    public GameModel(String name, String platform, GregorianCalendar releaseDate, List<String> developers, List<String> genres, Boolean isComplete) {
+        mUUID = UUID.randomUUID();
         mName = name;
         mPlatform = platform;
+        mReleaseDate = releaseDate;
+        mDevelopers = developers;
+        mGenres = genres;
         mIsComplete = isComplete;
+    }
+
+
+    public UUID getUUID() {
+        return mUUID;
     }
 
     public String getGameTitle() {
@@ -25,11 +42,43 @@ public class GameModel {
         mName = name;
     }
 
-    public Platform getPlatform() {
+    public String getPlatform() {
         return mPlatform;
     }
 
-    public void setPlatform(Platform platform) {
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        mName = name;
+    }
+
+    public Date getReleaseDate() {
+        return mReleaseDate.getTime();
+    }
+
+    public void setReleaseDate(GregorianCalendar releaseDate) {
+        mReleaseDate = releaseDate;
+    }
+
+    public List<String> getDevelopers() {
+        return mDevelopers;
+    }
+
+    public void setDevelopers(List<String> developers) {
+        mDevelopers = developers;
+    }
+
+    public List<String> getGenres() {
+        return mGenres;
+    }
+
+    public void setGenres(List<String> genres) {
+        mGenres = genres;
+    }
+
+    public void setPlatform(String platform) {
         mPlatform = platform;
     }
 

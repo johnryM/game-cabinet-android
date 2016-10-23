@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+              android:orientation="vertical"
+             tools:context="com.skeeno.android.gamecabinet.Fragment.GameInfoFragment">
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:padding="16dp"
+        tools:text="Title of Game"
+        />
+
+    <TextView
+        android:id="@+id/platform_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:padding="16dp"
+        tools:text="Platform"
+        />
+
+    <TextView
+        android:id="@+id/release_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:padding="16dp"
+        tools:text="10/10/10"
+        />
+
+    <TextView
+        android:id="@+id/developer_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:padding="16dp"
+        tools:text="Developer"
+        />
+
+    <TextView
+        android:id="@+id/genre_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:padding="16dp"
+        tools:text="Genre"
+        />
+
+    <CheckBox
+        android:id="@+id/complete_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Completed"
+        />
+
+</LinearLayout>

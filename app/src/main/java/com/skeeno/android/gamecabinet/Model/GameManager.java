@@ -1,7 +1,10 @@
 package com.skeeno.android.gamecabinet.Model;
 
+import com.skeeno.android.gamecabinet.Utils.HelperUtils;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Johnry on 9/18/2016.
@@ -17,7 +20,7 @@ public class GameManager {
     private List<GameModel> mGameList;
 
     private GameManager () {
-        mGameList = new ArrayList<>(addDefaultData());
+        mGameList = new ArrayList<>(HelperUtils.addDefaultData());
     }
 
     private static class GameManagerHolder {
@@ -50,28 +53,18 @@ public class GameManager {
         }
     }
 
-    public ArrayList<GameModel> addDefaultData() {
-        ArrayList<GameModel> list = new ArrayList();
-        list.add(new GameModel("Pokemon Sun", Platform.THREE_DS, false));
-        list.add(new GameModel("Deus Ex: Mankind Divided", Platform.PC, true));
-        list.add(new GameModel("Skate 3", Platform.XBOX_360, true));
-        list.add(new GameModel("Metal Gear Solid V: Phantom Pain", Platform.XBOX_ONE, false));
-        list.add(new GameModel("Test Drive Unlimited", Platform.XBOX_360, true));
-        list.add(new GameModel("Stardew Valley", Platform.PC, false));
-        list.add(new GameModel("Call of Duty: Modern Warfare", Platform.XBOX_360, true));
-        list.add(new GameModel("Shadow of the Colossus Remastered", Platform.PS3, false));
-        list.add(new GameModel("Age of Empires II", Platform.PC, false));
-        list.add(new GameModel("Destiny", Platform.XBOX_ONE, true));
-        list.add(new GameModel("Pokemon Yellow", Platform.OTHER, true));
-        list.add(new GameModel("Warhammer 40000: Dawn of War", Platform.PC, true));
-        list.add(new GameModel("Final Fantasy XV", Platform.PS4, false));
-        list.add(new GameModel("Tamagotchi", Platform.OTHER, false));
-
-        return list;
+    public GameModel getGameEntry(UUID gameId) {
+        for(GameModel game : mGameList) {
+            if (game.getUUID().equals(gameId)) {
+                return game;
+            }
+        }
+        return null;
     }
 
     public int getGameCollectionSize() {
         return mGameList.size();
     }
+
 }
 

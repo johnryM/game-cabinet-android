@@ -1,5 +1,6 @@
 package com.skeeno.android.gamecabinet.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.skeeno.android.gamecabinet.GameActivity;
 import com.skeeno.android.gamecabinet.Model.GameManager;
 import com.skeeno.android.gamecabinet.Model.GameModel;
 import com.skeeno.android.gamecabinet.Model.Platform;
@@ -84,7 +86,9 @@ public class CabinetFragment extends Fragment {
         }
     }
 
-    private class GameHolder extends RecyclerView.ViewHolder {
+    private class GameHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        GameModel mGameModel;
 
         public TextView mGameTitleTextView;
         public TextView mPlatformTextView;
@@ -92,10 +96,24 @@ public class CabinetFragment extends Fragment {
 
         public GameHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
 
             mGameTitleTextView = (TextView) itemView.findViewById(R.id.game_title_text);
             mPlatformTextView = (TextView) itemView.findViewById(R.id.game_platform_text);
             mCompletedCheck = (CheckBox) itemView.findViewById(R.id.completed_check_box);
+        }
+
+        public void bindGameData(GameModel game) {
+            mGameModel = game;
+            mGameTitleTextView.setText(game.getGameTitle());
+            mPlatformTextView.setText(game.getPlatform().toString());
+            mCompletedCheck.setChecked(game.getComplete());
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = GameActivity.newIntent(getActivity(), mGameModel.getUUID());
+            startActivity(intent);
         }
     }
 
@@ -118,9 +136,7 @@ public class CabinetFragment extends Fragment {
         @Override
         public void onBindViewHolder(GameHolder holder, int position) {
             GameModel game = mGames.get(position);
-            holder.mGameTitleTextView.setText(game.getGameTitle());
-            holder.mPlatformTextView.setText(game.getPlatform().toString());
-            holder.mCompletedCheck.setChecked(game.getComplete());
+            holder.bindGameData(game);
         }
 
         @Override
