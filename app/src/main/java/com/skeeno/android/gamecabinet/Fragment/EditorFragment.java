@@ -1,24 +1,35 @@
 package com.skeeno.android.gamecabinet.Fragment;
 
-import android.content.Context;
-import android.net.Uri;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.skeeno.android.gamecabinet.Model.GameModel;
 import com.skeeno.android.gamecabinet.R;
 
-public class EditorFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.text.DateFormat;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class EditorFragment extends Fragment {
+
+    private static final int REQUEST_DATE = 0;
+    private GameModel mGame;
+
+    private static final String DIALOG_DATE = "DialogDate";
+
+    private EditText mTitleField;
+    private EditText mPlatformField;
+    private TextView mReleaseDateView;
 
     public EditorFragment() {
         // Required empty public constructor
@@ -36,8 +47,6 @@ public class EditorFragment extends Fragment {
     public static EditorFragment newInstance(String param1, String param2) {
         EditorFragment fragment = new EditorFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,16 +54,74 @@ public class EditorFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_editor, container, false);
+        View view = inflater.inflate(R.layout.fragment_editor, container, false);
+
+        mTitleField = (EditText) view.findViewById(R.id.edit_text_title);
+        mTitleField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mGame.setGameTitle(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mPlatformField = (EditText) view.findViewById(R.id.edit_text_platform);
+        mPlatformField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mGame.setPlatform(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mReleaseDateView = (TextView) view.findViewById(R.id.release_text_view);
+        mReleaseDateView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                DatePickerFragment dialog = new DatePickerFragment();
+                dialog.setTargetFragment(EditorFragment.this, REQUEST_DATE);
+                dialog.show(fragmentManager, DIALOG_DATE);
+            }
+        });
+
+
+        return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) { return; }
+
+        if (requestCode == REQUEST_DATE) {
+            GregorianCalendar calendar = (GregorianCalendar) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            int style = DateFormat.FULL;
+            DateFormat dateFormat = DateFormat.getDateInstance(style, Locale.UK);
+            mReleaseDateView.setText(dateFormat.format(calendar.getTime()));
+        }
+
     }
 }
