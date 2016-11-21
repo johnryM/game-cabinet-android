@@ -13,4 +13,5 @@
     <string name="add">Add</string>
     <string name="developer">Developer</string>
     <string name="add_release_string">Release Date</string>
+    <string name="action_save">Save</string>
 </resources>

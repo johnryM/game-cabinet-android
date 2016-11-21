@@ -4,79 +4,93 @@
              android:id="@+id/editor_fragment_container"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.skeeno.android.gamecabinet.Fragment.EditorFragment">
+             tools:context="com.skeeno.android.gamecabinet.Fragment.EditorFragment"
+             android:fitsSystemWindows="true">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include
+            layout="@layout/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
+            android:layout_height="wrap_content"/>
 
 
-            <EditText
-                android:id="@+id/edit_text_title"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/title"
-                android:textSize="18sp"/>
+                android:orientation="vertical"
+                android:padding="12dp">
+
+
+                <EditText
+                    android:id="@+id/edit_text_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/title"
+                    android:textSize="18sp"/>
 
 
 
-            <EditText
-                android:id="@+id/edit_text_platform"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/platform"
-                android:textSize="18sp"/>
+                <EditText
+                    android:id="@+id/edit_text_platform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/platform"
+                    android:textSize="18sp"/>
 
-            <TextView
-                android:id="@+id/release_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="12dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="14dp"
-                android:text="@string/add_release_string"
-                android:textSize="18sp"
-                android:onClick="onClick"
-                android:clickable="true"/>
+                <TextView
+                    android:id="@+id/release_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="14dp"
+                    android:text="@string/add_release_string"
+                    android:textSize="18sp"
+                    android:onClick="onClick"
+                    android:clickable="true"/>
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:padding="12dp"
-                android:textSize="18sp"
-                android:text="@string/edit_completed_string"/>
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:padding="12dp"
+                    android:textSize="18sp"
+                    android:text="@string/edit_completed_string"/>
 
-            <TextView
-                android:id="@+id/genre_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="12dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="14dp"
-                android:text="@string/genre"
-                android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/genre_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="14dp"
+                    android:text="@string/genre"
+                    android:textSize="18sp"/>
 
-            <TextView
-                android:id="@+id/platform_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="12dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="14dp"
-                android:text="@string/platform"
-                android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/platform_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="14dp"
+                    android:text="@string/platform"
+                    android:textSize="18sp"/>
 
 
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </ScrollView>
+        </ScrollView>
+
+    </LinearLayout>
 
 </FrameLayout>

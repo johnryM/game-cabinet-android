@@ -1,6 +1,7 @@
 package com.skeeno.android.gamecabinet.Utils;
 
 import com.skeeno.android.gamecabinet.Model.GameModel;
+import com.skeeno.android.gamecabinet.Model.GameModelBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,20 +59,20 @@ public class HelperUtils {
 
     public static ArrayList<GameModel> addDefaultData() {
         ArrayList<GameModel> list = new ArrayList();
-        list.add(new GameModel("Pokemon Sun", "3DS", getRandomDate(), getDevArray(), getGenreArray(), false));
-        list.add(new GameModel("Deus Ex: Mankind Divided", "PC", getRandomDate(), getDevArray(), getGenreArray(), true));
-        list.add(new GameModel("Skate 3", "XBOX 360", getRandomDate(), getDevArray(), getGenreArray(),true));
-        list.add(new GameModel("Metal Gear Solid V: Phantom Pain", "XBOX ONE", getRandomDate(), getDevArray(), getGenreArray(), false));
-        list.add(new GameModel("Test Drive Unlimited", "XBOX 360", getRandomDate(), getDevArray(), getGenreArray(),true));
-        list.add(new GameModel("Stardew Valley", "PC", getRandomDate(), getDevArray(), getGenreArray(),false));
-        list.add(new GameModel("Call of Duty: Modern Warfare", "XBOX 360", getRandomDate(), getDevArray(), getGenreArray(),true));
-        list.add(new GameModel("Shadow of the Colossus Remastered", "PS3", getRandomDate(), getDevArray(), getGenreArray(),false));
-        list.add(new GameModel("Age of Empires II", "PC", getRandomDate(), getDevArray(), getGenreArray(), false));
-        list.add(new GameModel("Destiny", "XBOX ONE", getRandomDate(), getDevArray(), getGenreArray(), true));
-        list.add(new GameModel("Pokemon Yellow", "GAMEBOY", getRandomDate(), getDevArray(), getGenreArray(), true));
-        list.add(new GameModel("Warhammer 40000: Dawn of War", "PC", getRandomDate(), getDevArray(), getGenreArray(),true));
-        list.add(new GameModel("Final Fantasy XV", "PS4", getRandomDate(), getDevArray(), getGenreArray(), false));
-        list.add(new GameModel("Candy Crush", "ANDROID",getRandomDate(), getDevArray(), getGenreArray(),false));
+        list.add(new GameModelBuilder().setName("Pokemon Sun").setPlatform("3DS").setReleaseDate(getRandomDate()).setDevelopers(getDevArray()).setGenres(getGenreArray()).setIsComplete(false).createGameModel());
+        list.add(new GameModelBuilder().setName("Deus Ex: Mankind Divided").setPlatform("PC").setReleaseDate(getRandomDate()).setDevelopers(getDevArray()).setGenres(getGenreArray()).setIsComplete(true).createGameModel());
+        list.add(new GameModelBuilder().setName("Skate 3").setPlatform("XBOX 360").setReleaseDate(getRandomDate()).setDevelopers(getDevArray()).setGenres(getGenreArray()).setIsComplete(true).createGameModel());
+        list.add(new GameModelBuilder().setName("Metal Gear Solid V: Phantom Pain").setPlatform("XBOX ONE").setReleaseDate(getRandomDate()).setDevelopers(getDevArray()).setGenres(getGenreArray()).setIsComplete(false).createGameModel());
+        list.add(new GameModelBuilder().setName("Test Drive Unlimited").setPlatform("XBOX 360").setReleaseDate(getRandomDate()).setDevelopers(getDevArray()).setGenres(getGenreArray()).setIsComplete(true).createGameModel());
+        list.add(new GameModelBuilder().setName("Stardew Valley").setPlatform("PC").setReleaseDate(getRandomDate()).setDevelopers(getDevArray()).setGenres(getGenreArray()).setIsComplete(false).createGameModel());
+        list.add(new GameModelBuilder().setName("Call of Duty: Modern Warfare").setPlatform("XBOX 360").setReleaseDate(getRandomDate()).setDevelopers(getDevArray()).setGenres(getGenreArray()).setIsComplete(true).createGameModel());
+        list.add(new GameModelBuilder().setName("Shadow of the Colossus Remastered").setPlatform("PS3").setReleaseDate(getRandomDate()).setDevelopers(getDevArray()).setGenres(getGenreArray()).setIsComplete(false).createGameModel());
+        list.add(new GameModelBuilder().setName("Age of Empires II").setPlatform("PC").setReleaseDate(getRandomDate()).setDevelopers(getDevArray()).setGenres(getGenreArray()).setIsComplete(false).createGameModel());
+        list.add(new GameModelBuilder().setName("Destiny").setPlatform("XBOX ONE").setReleaseDate(getRandomDate()).setDevelopers(getDevArray()).setGenres(getGenreArray()).setIsComplete(true).createGameModel());
+        list.add(new GameModelBuilder().setName("Pokemon Yellow").setPlatform("GAMEBOY").setReleaseDate(getRandomDate()).setDevelopers(getDevArray()).setGenres(getGenreArray()).setIsComplete(true).createGameModel());
+        list.add(new GameModelBuilder().setName("Warhammer 40000: Dawn of War").setPlatform("PC").setReleaseDate(getRandomDate()).setDevelopers(getDevArray()).setGenres(getGenreArray()).setIsComplete(true).createGameModel());
+        list.add(new GameModelBuilder().setName("Final Fantasy XV").setPlatform("PS4").setReleaseDate(getRandomDate()).setDevelopers(getDevArray()).setGenres(getGenreArray()).setIsComplete(false).createGameModel());
+        list.add(new GameModelBuilder().setName("Candy Crush").setPlatform("ANDROID").setReleaseDate(getRandomDate()).setDevelopers(getDevArray()).setGenres(getGenreArray()).setIsComplete(false).createGameModel());
 
         return list;
     }

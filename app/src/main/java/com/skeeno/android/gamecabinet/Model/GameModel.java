@@ -18,6 +18,9 @@ public class GameModel {
     private List<String> mGenres;
     private Boolean mIsComplete;
 
+    public GameModel() {
+        mUUID = UUID.randomUUID();
+    }
 
     public GameModel(String name, String platform, GregorianCalendar releaseDate, List<String> developers, List<String> genres, Boolean isComplete) {
         mUUID = UUID.randomUUID();
@@ -58,25 +61,15 @@ public class GameModel {
         return mReleaseDate.getTime();
     }
 
-    public void setReleaseDate(GregorianCalendar releaseDate) {
-        mReleaseDate = releaseDate;
-    }
-
     public List<String> getDevelopers() {
         return mDevelopers;
     }
 
-    public void setDevelopers(List<String> developers) {
-        mDevelopers = developers;
-    }
 
     public List<String> getGenres() {
         return mGenres;
     }
 
-    public void setGenres(List<String> genres) {
-        mGenres = genres;
-    }
 
     public void setPlatform(String platform) {
         mPlatform = platform;
@@ -86,7 +79,4 @@ public class GameModel {
         return mIsComplete;
     }
 
-    public void setComplete(Boolean complete) {
-        mIsComplete = complete;
-    }
 }
