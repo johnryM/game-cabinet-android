@@ -28,15 +28,12 @@
                 android:orientation="vertical"
                 android:padding="12dp">
 
-
                 <EditText
                     android:id="@+id/edit_text_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/title"
                     android:textSize="18sp"/>
-
-
 
                 <EditText
                     android:id="@+id/edit_text_platform"
@@ -53,9 +50,7 @@
                     android:paddingLeft="4dp"
                     android:paddingTop="14dp"
                     android:text="@string/add_release_string"
-                    android:textSize="18sp"
-                    android:onClick="onClick"
-                    android:clickable="true"/>
+                    android:textSize="18sp"/>
 
                 <CheckBox
                     android:layout_width="wrap_content"

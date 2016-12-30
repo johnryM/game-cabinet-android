@@ -3,19 +3,21 @@ package com.skeeno.android.gamecabinet.Fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.skeeno.android.gamecabinet.Model.GameModel;
 import com.skeeno.android.gamecabinet.R;
@@ -24,6 +26,12 @@ import java.text.DateFormat;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
+import butterknife.Unbinder;
+
 public class EditorFragment extends Fragment {
 
     private static final int REQUEST_DATE = 0;
@@ -31,9 +39,11 @@ public class EditorFragment extends Fragment {
 
     private static final String DIALOG_DATE = "DialogDate";
 
-    private EditText mTitleField;
-    private EditText mPlatformField;
-    private TextView mReleaseDateView;
+    @BindView(R.id.edit_text_title) EditText mTitleField;
+    @BindView(R.id.edit_text_platform) EditText mPlatformField;
+    @BindView(R.id.release_text_view) TextView mReleaseDateView;
+
+    private Unbinder unbinder;
 
     public EditorFragment() {
         // Required empty public constructor
@@ -66,62 +76,19 @@ public class EditorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_editor, container, false);
-
+        unbinder = ButterKnife.bind(this,view);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
 
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        mTitleField = (EditText) view.findViewById(R.id.edit_text_title);
-        mTitleField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mGame.setGameTitle(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        mPlatformField = (EditText) view.findViewById(R.id.edit_text_platform);
-        mPlatformField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mGame.setPlatform(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        mReleaseDateView = (TextView) view.findViewById(R.id.release_text_view);
-        mReleaseDateView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                DatePickerFragment dialog = new DatePickerFragment();
-                dialog.setTargetFragment(EditorFragment.this, REQUEST_DATE);
-                dialog.show(fragmentManager, DIALOG_DATE);
-            }
-        });
-
-
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -134,11 +101,34 @@ public class EditorFragment extends Fragment {
             DateFormat dateFormat = DateFormat.getDateInstance(style, Locale.UK);
             mReleaseDateView.setText(dateFormat.format(calendar.getTime()));
         }
-
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.toolbar_editor, menu);
     }
+
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnTextChanged(value = R.id.edit_text_title, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    void setEditGameTitle(Editable editable) {
+        mGame.setGameTitle(editable.toString());
+    }
+
+    @OnTextChanged(value = R.id.edit_text_platform, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    void setEditGamePlatform(Editable editable) {
+        mGame.setPlatform(editable.toString());
+    }
+
+    @OnClick(R.id.release_text_view)
+    public void openCalendar() {
+        FragmentManager fragmentManager = getFragmentManager();
+        DatePickerFragment dialog = new DatePickerFragment();
+        dialog.setTargetFragment(EditorFragment.this, REQUEST_DATE);
+        dialog.show(fragmentManager, DIALOG_DATE);
+    }
+
 }
